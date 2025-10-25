@@ -5,6 +5,7 @@ class TicTacToe:
             [' ', ' ', ' '],
             [' ', ' ', ' ']
         ]
+        self.current_player = 'X'
 
     def print_board(self):
         print("\n  0   1   2")
@@ -18,6 +19,10 @@ class TicTacToe:
         while True:
             try:
                 move = input(f"игрок {player}, введите строку и столбец (например: 0 1): ")
+    def get_player_input(self):
+        while True:
+            try:
+                move = input(f"игрок {self.current_player}, введите строку и столбец (например: 0 1): ")
 
                 coordinates = move.split()
 
@@ -37,12 +42,30 @@ class TicTacToe:
                     continue
 
                 print(f"nice! ставим в клетку [{row}, {col}]")
+                    print("error: числа должны быть от 0 до 2!")
+                    continue
+
+                if self.board[row][col] != ' ':
+                    print("error: эта клетка уже занята!")
+                    continue
+
                 return row, col
 
             except ValueError:
                 print("error: введите ЦЕЛЫЕ числа (например: 1 2)")
             except Exception as e:
                 print(f"неожиданный error: {e}")
+
+    def make_move(self, row, col):
+        self.board[row][col] = self.current_player
+        print(f"игрок {self.current_player} походил в [{row}, {col}]")
+
+        if self.current_player == 'X':
+            self.current_player = 'O'
+        else:
+            self.current_player = 'X'
+
+        print(f"теперь ход игрока {self.current_player}")
 
 
 def main():
@@ -57,6 +80,14 @@ def main():
 
     game.board[row][col] = 'X'
     game.print_board()
+    print("демка поочередных ходов:")
+    game.print_board()
+
+    for turn in range(3):
+        print(f"\n--- ход {turn + 1} ---")
+        row, col = game.get_player_input()
+        game.make_move(row, col)
+        game.print_board()
 
 
 if __name__ == "__main__":
