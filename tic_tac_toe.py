@@ -92,6 +92,52 @@ class TicTacToe:
                     return False
         return True
 
+
+def main():
+    print("=== КРЕСТИКИ-НОЛИКИ ===")
+    print("Тестируем определение победителя...")
+
+    game = TicTacToe()
+
+    print("\n--- ТЕСТ 1: Победитель по первой строке ---")
+    game.board = [
+        ['X', 'X', 'X'],
+        ['O', 'O', ' '],
+        [' ', ' ', ' ']
+    ]
+    game.print_board()
+    winner = game.check_winner()
+    print(f"winner: {winner}" if winner else "Победителя нет")
+
+    print("\n--- ТЕСТ 2: Победитель по второму столбцу ---")
+    game.board = [
+        ['X', 'O', 'X'],
+        [' ', 'O', ' '],
+        ['X', 'O', ' ']
+    ]
+    game.print_board()
+    winner = game.check_winner()
+    print(f"winner: {winner}" if winner else "Победителя нет")
+
+    print("\n--- ТЕСТ 3: Победитель по главной диагонали ---")
+    game.board = [
+        ['O', 'X', ' '],
+        ['X', 'O', ' '],
+        [' ', ' ', 'O']
+    ]
+    game.print_board()
+    winner = game.check_winner()
+    print(f"winner: {winner}" if winner else "Победителя нет")
+
+    print("\n--- ТЕСТ 4: Нет победителя ---")
+    game.board = [
+        ['X', 'O', 'X'],
+        ['O', 'X', 'O'],
+        ['O', 'X', ' ']
+    ]
+    game.print_board()
+    winner = game.check_winner()
+    print(f"winner: {winner}" if winner else "Победителя нет")
     def reset_game(self):
         self.board = [[' ' for _ in range(3)] for _ in range(3)]
         self.current_player = 'X'
