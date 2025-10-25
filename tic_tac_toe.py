@@ -1,5 +1,6 @@
 class TicTacToe:
     def __init__(self):
+        # Игровое поле 3x3
         self.board = [
             [' ', ' ', ' '],
             [' ', ' ', ' '],
