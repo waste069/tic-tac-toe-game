@@ -6,6 +6,7 @@ class TicTacToe:
             [' ', ' ', ' ']
         ]
         self.current_player = 'X'
+        self.game_over = False
 
     def print_board(self):
         print("\n  0   1   2")
@@ -54,6 +55,7 @@ class TicTacToe:
             except ValueError:
                 print("error: введите ЦЕЛЫЕ числа (например: 1 2)")
             except Exception as e:
+                print(f"error: {e}")
                 print(f"неожиданный error: {e}")
 
     def make_move(self, row, col):
@@ -67,6 +69,52 @@ class TicTacToe:
 
         print(f"теперь ход игрока {self.current_player}")
 
+    def check_winner(self):
+        for row in range(3):
+            if self.board[row][0] == self.board[row][1] == self.board[row][2] != ' ':
+                return self.board[row][0]
+
+        for col in range(3):
+            if self.board[0][col] == self.board[1][col] == self.board[2][col] != ' ':
+                return self.board[0][col]
+
+        if self.board[0][0] == self.board[1][1] == self.board[2][2] != ' ':
+            return self.board[0][0]
+        if self.board[0][2] == self.board[1][1] == self.board[2][0] != ' ':
+            return self.board[0][2]
+
+        return None
+
+    def is_board_full(self):
+        for row in self.board:
+            for cell in row:
+                if cell == ' ':
+                    return False
+        return True
+
+    def reset_game(self):
+        self.board = [[' ' for _ in range(3)] for _ in range(3)]
+        self.current_player = 'X'
+        self.game_over = False
+
+
+def main():
+    game = TicTacToe()
+
+    while True:
+        game.print_board()
+
+        winner = game.check_winner()
+        if winner:
+            print(f"победил игрок {winner}!")
+            break
+
+        if game.is_board_full():
+            print("ничья!!!!")
+            break
+
+        row, col = game.get_player_input()
+        game.make_move(row, col)
 
 def main():
     print("=== КРЕСТИКИ-НОЛИКИ ===")
